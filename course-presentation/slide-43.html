@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AT AI Assistant &middot; Tutorial &mdash; 43/57</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-index="43" data-total="57" data-prev="slide-42.html" data-next="slide-44.html" data-first="index.html" data-last="slide-57.html">
+<div class="topbar"><div class="progress" id="prog"></div></div>
+<div class="doc">
+<nav class="sidebar"><div class="sb-head"><div class="sb-title">AT AI Assistant</div><div class="sb-sub">RAG Tutorial &middot; 31 steps</div></div><div class="sb-group"><div class="sb-gtitle">Introduction</div><a class="sb-link" href="index.html">Start</a><a class="sb-link" href="slide-02.html">The big idea</a><a class="sb-link" href="slide-03.html">The plan</a></div><div class="sb-group"><div class="sb-gtitle">2 &middot; Setup</div><a class="sb-link" href="slide-04.html">Overview</a><a class="sb-link" href="slide-05.html">1. Clone the repo</a><a class="sb-link" href="slide-06.html">Why: GitHub &amp; Bitbucket</a><a class="sb-link" href="slide-07.html">Why: how Git works</a><a class="sb-link" href="slide-08.html">2. Install Python</a><a class="sb-link" href="slide-09.html">3. Install Docker</a><a class="sb-link" href="slide-10.html">4. Install Ollama</a><a class="sb-link" href="slide-11.html">5. Virtual env</a><a class="sb-link" href="slide-12.html">6. Dependencies</a><a class="sb-link" href="slide-13.html">7. .gitignore</a><a class="sb-link" href="slide-14.html">Why: Markdown docs</a><a class="sb-link" href="slide-15.html">Files map</a></div><div class="sb-group"><div class="sb-gtitle">3 &middot; Database</div><a class="sb-link" href="slide-16.html">Overview</a><a class="sb-link" href="slide-17.html">Why: PostgreSQL</a><a class="sb-link" href="slide-18.html">Why: pgvector</a><a class="sb-link" href="slide-19.html">8. Run Postgres</a><a class="sb-link" href="slide-20.html">9. Enable pgvector</a><a class="sb-link" href="slide-21.html">10. Create table</a><a class="sb-link" href="slide-22.html">Why: cosine distance</a><a class="sb-link" href="slide-23.html">Tools: pgAdmin</a><a class="sb-link" href="slide-24.html">Tools: Query Tool</a><a class="sb-link" href="slide-25.html">Tools: DBeaver</a></div><div class="sb-group"><div class="sb-gtitle">4 &middot; Data</div><a class="sb-link" href="slide-26.html">Overview</a><a class="sb-link" href="slide-27.html">Why: embeddings</a><a class="sb-link" href="slide-28.html">11. Knowledge base</a><a class="sb-link" href="slide-29.html">12. calcEmbed()</a><a class="sb-link" href="slide-30.html">13. localdb.py</a><a class="sb-link" href="slide-31.html">14. Backfill vectors</a><a class="sb-link" href="slide-32.html">How-to: load the files</a><a class="sb-link" href="slide-33.html">15. Load &amp; verify</a></div><div class="sb-group"><div class="sb-gtitle">5 &middot; Backend</div><a class="sb-link" href="slide-34.html">Overview</a><a class="sb-link" href="slide-35.html">16. API skeleton</a><a class="sb-link" href="slide-36.html">17. Pydantic model</a><a class="sb-link" href="slide-37.html">18. Read endpoints</a><a class="sb-link" href="slide-38.html">19. Create endpoint</a><a class="sb-link" href="slide-39.html">20. Update &amp; delete</a><a class="sb-link" href="slide-40.html">21. Search</a><a class="sb-link" href="slide-41.html">Why: this is RAG</a><a class="sb-link" href="slide-42.html">22. Answer endpoint</a><a class="sb-link active" href="slide-43.html">23. Chat memory</a><a class="sb-link" href="slide-44.html">24. Run &amp; test API</a></div><div class="sb-group"><div class="sb-gtitle">6 &middot; Frontend</div><a class="sb-link" href="slide-45.html">Overview</a><a class="sb-link" href="slide-46.html">25. ask_bot()</a><a class="sb-link" href="slide-47.html">26. Clean &amp; launch</a><a class="sb-link" href="slide-48.html">27. Run the UI</a></div><div class="sb-group"><div class="sb-gtitle">7 &middot; Test &amp; Run</div><a class="sb-link" href="slide-49.html">Overview</a><a class="sb-link" href="slide-50.html">28. Write tests</a><a class="sb-link" href="slide-51.html">29. Run tests</a><a class="sb-link" href="slide-52.html">30. Start order</a><a class="sb-link" href="slide-53.html">31. Troubleshooting</a></div><div class="sb-group"><div class="sb-gtitle">8 &middot; Wrap-up</div><a class="sb-link" href="slide-54.html">Overview</a><a class="sb-link" href="slide-55.html">Recap</a><a class="sb-link" href="slide-56.html">Exercises</a><a class="sb-link" href="slide-57.html">Done</a></div></nav>
+<div class="content"><section class="slide "><div class="brandmark">Module 5 &middot; Backend</div><div class="ribbon">Step 23 <span class="of">of 31</span> &middot; write the file</div><h2>Answer with conversation memory</h2><div class="split"><div class="sp-text"><p class="desc">HTTP is <b>stateless</b>: the server forgets everything between requests. So for a real conversation, the client must send the <i>whole chat history</i> each time. This POST variant accepts it as a list of strings.</p></div><div class="sp-code"><div class="block file"><div class="bhead">atassistantapi.py &mdash; continued<span class="tag">FILE</span></div><pre><span class="f">@app.post(<span class="s">"/at_data/answer"</span>)</span>
+<span class="k">def</span> <span class="f">generate_ollama_answer</span>(messages: List[str] = Body(...)):
+    <span class="k">try</span>:
+        history = messages[:-1]
+        question = messages[-1]
+        print(f<span class="s">"history: {history}"</span>) <span class="c">#DEBUG</span>
+        print(f<span class="s">"question: {question}"</span>) <span class="c">#DEBUG</span>
+        query_vector = calcEmbed(question)
+
+        conn = getDbCon()
+        cur = conn.cursor()
+
+        cur.execute(<span class="s">"""
+            SELECT context, context_vector &lt;=&gt; %s::vector AS distance
+            FROM at_data
+            WHERE context_vector &lt;=&gt; %s::vector &lt; 0.5
+            ORDER BY context_vector &lt;=&gt; %s::vector
+            LIMIT 5
+        """</span>, (query_vector, query_vector, query_vector))
+
+        rows = cur.fetchall()
+        <span class="k">if not</span> rows:
+            print(f<span class="s">"[ERROR] No similar context found for question {question}"</span>)
+            <span class="k">raise</span> HTTPException(status_code=500, detail=<span class="s">"No similar context found"</span>)
+
+        combined_context = <span class="s">"\n"</span>.join([f<span class="s">"Chunk: {row[0]}"</span> <span class="k">for</span> row <span class="k">in</span> rows])
+
+        history_messages = [{<span class="s">"role"</span>: <span class="s">"user"</span> <span class="k">if</span> i % 2 == 0 <span class="k">else</span> <span class="s">"assistant"</span>, <span class="s">"content"</span>: msg}
+                            <span class="k">for</span> i, msg <span class="k">in</span> enumerate(history)]
+        history_messages.append({
+            <span class="s">"role"</span>: <span class="s">"user"</span>,
+            <span class="s">"content"</span>: question
+        })
+
+        response = ollama.chat(
+            model=OLLAMA_MODEL,
+            messages=[
+                {
+                    <span class="s">"role"</span>: <span class="s">"system"</span>,
+                    <span class="s">"content"</span>: (
+                        <span class="s">"You are a helpful and formal assistant. "</span>
+                        <span class="s">"Use the following context to answer the user's question. "</span>
+                        <span class="s">"Be concise and professional.\n\n"</span>
+                        f<span class="s">"Use only following context as factual information:\n{combined_context}"</span>
+                    )
+                }
+            ] + history_messages
+        )
+
+        <span class="k">return</span> {
+            <span class="s">"question"</span>: question,
+            <span class="s">"answer"</span>: response[<span class="s">"message"</span>][<span class="s">"content"</span>].strip()
+        }
+
+    <span class="k">except</span> HTTPException:
+        <span class="k">raise</span>
+    <span class="k">except</span> Exception <span class="k">as</span> e:
+        <span class="k">raise</span> HTTPException(status_code=500, detail=str(e))
+    <span class="k">finally</span>:
+        cur.close()
+        conn.close()</pre></div></div><div class="sp-after"><p><b>Even/odd trick:</b> messages alternate user &rarr; assistant &rarr; user&hellip;, so an even list-position means "user said this", odd means "the bot replied this". The model receives the full labeled history plus fresh context for the newest question.</p>
+     <p>The <code class="inl">#DEBUG</code> prints show each request in the server terminal &mdash; handy while learning; remove them later if they get noisy.</p></div></div></section></div>
+</div>
+<div class="hud">
+  <a class="btn" id="prev" href="slide-42.html" title="Previous">&lsaquo;</a>
+  <span class="counter" id="count"></span>
+  <a class="btn" id="next" href="slide-44.html" title="Next">&rsaquo;</a>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

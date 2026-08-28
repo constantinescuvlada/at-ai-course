@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AT AI Assistant &middot; Tutorial &mdash; 39/57</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-index="39" data-total="57" data-prev="slide-38.html" data-next="slide-40.html" data-first="index.html" data-last="slide-57.html">
+<div class="topbar"><div class="progress" id="prog"></div></div>
+<div class="doc">
+<nav class="sidebar"><div class="sb-head"><div class="sb-title">AT AI Assistant</div><div class="sb-sub">RAG Tutorial &middot; 31 steps</div></div><div class="sb-group"><div class="sb-gtitle">Introduction</div><a class="sb-link" href="index.html">Start</a><a class="sb-link" href="slide-02.html">The big idea</a><a class="sb-link" href="slide-03.html">The plan</a></div><div class="sb-group"><div class="sb-gtitle">2 &middot; Setup</div><a class="sb-link" href="slide-04.html">Overview</a><a class="sb-link" href="slide-05.html">1. Clone the repo</a><a class="sb-link" href="slide-06.html">Why: GitHub &amp; Bitbucket</a><a class="sb-link" href="slide-07.html">Why: how Git works</a><a class="sb-link" href="slide-08.html">2. Install Python</a><a class="sb-link" href="slide-09.html">3. Install Docker</a><a class="sb-link" href="slide-10.html">4. Install Ollama</a><a class="sb-link" href="slide-11.html">5. Virtual env</a><a class="sb-link" href="slide-12.html">6. Dependencies</a><a class="sb-link" href="slide-13.html">7. .gitignore</a><a class="sb-link" href="slide-14.html">Why: Markdown docs</a><a class="sb-link" href="slide-15.html">Files map</a></div><div class="sb-group"><div class="sb-gtitle">3 &middot; Database</div><a class="sb-link" href="slide-16.html">Overview</a><a class="sb-link" href="slide-17.html">Why: PostgreSQL</a><a class="sb-link" href="slide-18.html">Why: pgvector</a><a class="sb-link" href="slide-19.html">8. Run Postgres</a><a class="sb-link" href="slide-20.html">9. Enable pgvector</a><a class="sb-link" href="slide-21.html">10. Create table</a><a class="sb-link" href="slide-22.html">Why: cosine distance</a><a class="sb-link" href="slide-23.html">Tools: pgAdmin</a><a class="sb-link" href="slide-24.html">Tools: Query Tool</a><a class="sb-link" href="slide-25.html">Tools: DBeaver</a></div><div class="sb-group"><div class="sb-gtitle">4 &middot; Data</div><a class="sb-link" href="slide-26.html">Overview</a><a class="sb-link" href="slide-27.html">Why: embeddings</a><a class="sb-link" href="slide-28.html">11. Knowledge base</a><a class="sb-link" href="slide-29.html">12. calcEmbed()</a><a class="sb-link" href="slide-30.html">13. localdb.py</a><a class="sb-link" href="slide-31.html">14. Backfill vectors</a><a class="sb-link" href="slide-32.html">How-to: load the files</a><a class="sb-link" href="slide-33.html">15. Load &amp; verify</a></div><div class="sb-group"><div class="sb-gtitle">5 &middot; Backend</div><a class="sb-link" href="slide-34.html">Overview</a><a class="sb-link" href="slide-35.html">16. API skeleton</a><a class="sb-link" href="slide-36.html">17. Pydantic model</a><a class="sb-link" href="slide-37.html">18. Read endpoints</a><a class="sb-link" href="slide-38.html">19. Create endpoint</a><a class="sb-link active" href="slide-39.html">20. Update &amp; delete</a><a class="sb-link" href="slide-40.html">21. Search</a><a class="sb-link" href="slide-41.html">Why: this is RAG</a><a class="sb-link" href="slide-42.html">22. Answer endpoint</a><a class="sb-link" href="slide-43.html">23. Chat memory</a><a class="sb-link" href="slide-44.html">24. Run &amp; test API</a></div><div class="sb-group"><div class="sb-gtitle">6 &middot; Frontend</div><a class="sb-link" href="slide-45.html">Overview</a><a class="sb-link" href="slide-46.html">25. ask_bot()</a><a class="sb-link" href="slide-47.html">26. Clean &amp; launch</a><a class="sb-link" href="slide-48.html">27. Run the UI</a></div><div class="sb-group"><div class="sb-gtitle">7 &middot; Test &amp; Run</div><a class="sb-link" href="slide-49.html">Overview</a><a class="sb-link" href="slide-50.html">28. Write tests</a><a class="sb-link" href="slide-51.html">29. Run tests</a><a class="sb-link" href="slide-52.html">30. Start order</a><a class="sb-link" href="slide-53.html">31. Troubleshooting</a></div><div class="sb-group"><div class="sb-gtitle">8 &middot; Wrap-up</div><a class="sb-link" href="slide-54.html">Overview</a><a class="sb-link" href="slide-55.html">Recap</a><a class="sb-link" href="slide-56.html">Exercises</a><a class="sb-link" href="slide-57.html">Done</a></div></nav>
+<div class="content"><section class="slide "><div class="brandmark">Module 5 &middot; Backend</div><div class="ribbon">Step 20 <span class="of">of 31</span> &middot; write the file</div><h2>Update &amp; delete endpoints</h2><div class="split"><div class="sp-text"><p class="desc">PUT replaces an existing document (re-embedding its fields); DELETE removes one. <code class="inl">cur.rowcount</code> tells us how many rows the SQL touched &mdash; zero means that id doesn't exist, so we answer <b>404</b>.</p></div><div class="sp-code"><div class="block file"><div class="bhead">atassistantapi.py &mdash; continued<span class="tag">FILE</span></div><pre><span class="f">@app.put(<span class="s">"/at_data/{page_id}"</span>)</span>
+<span class="k">def</span> <span class="f">update_page</span>(page_id: int, info: PageInfo):
+    <span class="k">if not</span> info.page.strip() <span class="k">or not</span> info.title.strip() <span class="k">or not</span> info.context.strip():
+        <span class="k">raise</span> HTTPException(status_code=400, detail=<span class="s">"Fields must not be empty"</span>)
+
+    <span class="k">try</span>:
+        conn = getDbCon()
+        cur = conn.cursor()
+
+        page_vector = calcEmbed(info.page)
+        title_vector = calcEmbed(info.title)
+        context_vector = calcEmbed(info.context)
+
+        cur.execute(<span class="s">"""
+            UPDATE at_data
+            SET page = %s, title = %s, context = %s,
+                page_vector = %s, title_vector = %s, context_vector = %s
+            WHERE id = %s
+        """</span>, (
+            info.page.strip(), info.title.strip(), info.context.strip(),
+            page_vector, title_vector, context_vector, page_id
+        ))
+
+        <span class="k">if</span> cur.rowcount == 0:
+            <span class="k">raise</span> HTTPException(status_code=404, detail=<span class="s">"Data not found"</span>)
+
+        conn.commit()
+        <span class="k">return</span> {<span class="s">"message"</span>: <span class="s">"Updated"</span>, <span class="s">"id"</span>: page_id}
+
+    <span class="k">except</span> Exception <span class="k">as</span> e:
+        <span class="k">raise</span> HTTPException(status_code=500, detail=str(e))
+    <span class="k">finally</span>:
+        cur.close()
+        conn.close()
+
+
+<span class="f">@app.delete(<span class="s">"/at_data/{page_id}"</span>)</span>
+<span class="k">def</span> <span class="f">delete_page</span>(page_id: int):
+    <span class="k">try</span>:
+        conn = getDbCon()
+        cur = conn.cursor()
+        cur.execute(<span class="s">"DELETE FROM at_data WHERE id = %s"</span>, (page_id,))
+
+        <span class="k">if</span> cur.rowcount == 0:
+            <span class="k">raise</span> HTTPException(status_code=404, detail=<span class="s">"Data not found"</span>)
+
+        conn.commit()
+        <span class="k">return</span> {<span class="s">"message"</span>: <span class="s">"Deleted"</span>, <span class="s">"id"</span>: page_id}
+
+    <span class="k">except</span> Exception <span class="k">as</span> e:
+        <span class="k">raise</span> HTTPException(status_code=500, detail=str(e))
+    <span class="k">finally</span>:
+        cur.close()
+        conn.close()</pre></div></div><div class="sp-after"><p>Together with Steps 18&ndash;19 this is <b>CRUD</b> &mdash; Create, Read, Update, Delete &mdash; the standard set of operations for managing stored data. The knowledge base is now fully manageable over HTTP.</p></div></div></section></div>
+</div>
+<div class="hud">
+  <a class="btn" id="prev" href="slide-38.html" title="Previous">&lsaquo;</a>
+  <span class="counter" id="count"></span>
+  <a class="btn" id="next" href="slide-40.html" title="Next">&rsaquo;</a>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

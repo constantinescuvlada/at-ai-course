@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AT AI Assistant &middot; Учебник &mdash; 32/57</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body data-index="32" data-total="57" data-prev="slide-31.html" data-next="slide-33.html" data-first="index.html" data-last="slide-57.html">
+<div class="topbar"><div class="progress" id="prog"></div></div>
+<div class="doc">
+<nav class="sidebar"><div class="sb-head"><div class="sb-title">AT AI Assistant</div><div class="sb-sub">RAG-учебник &middot; 31 шаг</div></div><div class="sb-group"><div class="sb-gtitle">Введение</div><a class="sb-link" href="index.html">Начало</a><a class="sb-link" href="slide-02.html">Главная идея</a><a class="sb-link" href="slide-03.html">План</a></div><div class="sb-group"><div class="sb-gtitle">2 &middot; Установка</div><a class="sb-link" href="slide-04.html">Обзор</a><a class="sb-link" href="slide-05.html">1. Клонируем репозиторий</a><a class="sb-link" href="slide-06.html">Почему: GitHub и Bitbucket</a><a class="sb-link" href="slide-07.html">Почему: как работает Git</a><a class="sb-link" href="slide-08.html">2. Ставим Python</a><a class="sb-link" href="slide-09.html">3. Ставим Docker</a><a class="sb-link" href="slide-10.html">4. Ставим Ollama</a><a class="sb-link" href="slide-11.html">5. Виртуальное окружение</a><a class="sb-link" href="slide-12.html">6. Зависимости</a><a class="sb-link" href="slide-13.html">7. .gitignore</a><a class="sb-link" href="slide-14.html">Почему: Markdown</a><a class="sb-link" href="slide-15.html">Карта файлов</a></div><div class="sb-group"><div class="sb-gtitle">3 &middot; База данных</div><a class="sb-link" href="slide-16.html">Обзор</a><a class="sb-link" href="slide-17.html">Почему: PostgreSQL</a><a class="sb-link" href="slide-18.html">Почему: pgvector</a><a class="sb-link" href="slide-19.html">8. Запускаем Postgres</a><a class="sb-link" href="slide-20.html">9. Включаем pgvector</a><a class="sb-link" href="slide-21.html">10. Создаём таблицу</a><a class="sb-link" href="slide-22.html">Почему: косинусное расстояние</a><a class="sb-link" href="slide-23.html">Инструменты: pgAdmin</a><a class="sb-link" href="slide-24.html">Инструменты: Query Tool</a><a class="sb-link" href="slide-25.html">Инструменты: DBeaver</a></div><div class="sb-group"><div class="sb-gtitle">4 &middot; Данные</div><a class="sb-link" href="slide-26.html">Обзор</a><a class="sb-link" href="slide-27.html">Почему: эмбеддинги</a><a class="sb-link" href="slide-28.html">11. База знаний</a><a class="sb-link" href="slide-29.html">12. calcEmbed()</a><a class="sb-link" href="slide-30.html">13. localdb.py</a><a class="sb-link" href="slide-31.html">14. Заполняем векторы</a><a class="sb-link active" href="slide-32.html">Как загрузить файлы</a><a class="sb-link" href="slide-33.html">15. Загрузка и проверка</a></div><div class="sb-group"><div class="sb-gtitle">5 &middot; Бэкенд</div><a class="sb-link" href="slide-34.html">Обзор</a><a class="sb-link" href="slide-35.html">16. Каркас API</a><a class="sb-link" href="slide-36.html">17. Модель Pydantic</a><a class="sb-link" href="slide-37.html">18. Эндпоинты чтения</a><a class="sb-link" href="slide-38.html">19. Эндпоинт создания</a><a class="sb-link" href="slide-39.html">20. Обновление и удаление</a><a class="sb-link" href="slide-40.html">21. Поиск</a><a class="sb-link" href="slide-41.html">Почему: это и есть RAG</a><a class="sb-link" href="slide-42.html">22. Эндпоинт ответа</a><a class="sb-link" href="slide-43.html">23. Память чата</a><a class="sb-link" href="slide-44.html">24. Запуск и тест API</a></div><div class="sb-group"><div class="sb-gtitle">6 &middot; Фронтенд</div><a class="sb-link" href="slide-45.html">Обзор</a><a class="sb-link" href="slide-46.html">25. ask_bot()</a><a class="sb-link" href="slide-47.html">26. Чистим и запускаем</a><a class="sb-link" href="slide-48.html">27. Запускаем UI</a></div><div class="sb-group"><div class="sb-gtitle">7 &middot; Тесты и запуск</div><a class="sb-link" href="slide-49.html">Обзор</a><a class="sb-link" href="slide-50.html">28. Пишем тесты</a><a class="sb-link" href="slide-51.html">29. Запускаем тесты</a><a class="sb-link" href="slide-52.html">30. Порядок запуска</a><a class="sb-link" href="slide-53.html">31. Решение проблем</a></div><div class="sb-group"><div class="sb-gtitle">8 &middot; Итоги</div><a class="sb-link" href="slide-54.html">Обзор</a><a class="sb-link" href="slide-55.html">Резюме</a><a class="sb-link" href="slide-56.html">Упражнения</a><a class="sb-link" href="slide-57.html">Готово</a></div></nav>
+<div class="content"><section class="slide "><div class="brandmark">Модуль 4 &middot; Данные</div><div class="ribbon">Как это делается &middot; скачанные файлы</div><h2>Загружаем скачанные .md-файлы в базу данных</h2><div class="split"><div class="sp-text"><p class="desc">В склонированной папке <code class="inl">files/</code> лежат Markdown-документы компании, но <code class="inl">localdb.py</code> вставляет только один зашитый в код пример. Добавим небольшой <b>загрузчик</b>, который обходит папку и вставляет каждый раздел автоматически.</p><p>Каждый файл превращается в несколько строк таблицы: <i>page</i> берётся из имени файла, а каждый заголовок <code class="inl">#</code>/<code class="inl">##</code> начинает новую строку &mdash; <i>title</i> &mdash; это строка заголовка, <i>context</i> &mdash; текст под ней.</p></div><div class="sp-code"><div class="block file"><div class="bhead">localdb.py &mdash; continued<span class="tag">FILE</span></div><pre><span class="k">import</span> os
+
+<span class="k">def</span> <span class="f">loadFiles</span>(folder=<span class="s">"files"</span>):
+    <span class="k">for</span> name <span class="k">in</span> os.listdir(folder):
+        <span class="k">if not</span> name.endswith(<span class="s">".md"</span>):
+            <span class="k">continue</span>
+        <span class="k">with</span> open(os.path.join(folder, name), encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> f:
+            text = f.read()
+
+        page = name[:-3]                    <span class="c"># aboutus.md -&gt; aboutus</span>
+        <span class="k">for</span> part <span class="k">in</span> text.split(<span class="s">"\n#"</span>):      <span class="c"># each heading starts a section</span>
+            lines = part.strip().lstrip(<span class="s">"#"</span>).strip().split(<span class="s">"\n"</span>, 1)
+            <span class="k">if</span> len(lines) &lt; 2:              <span class="c"># heading without text: skip</span>
+                <span class="k">continue</span>
+            title, context = lines
+            insertInfo(page, title.strip(), context.strip())
+
+<span class="c"># MAIN</span>
+<span class="k">if</span> __name__ == <span class="s">"__main__"</span>:
+    loadFiles()</pre></div><div class="block term"><div class="bhead"><span class="dots"><i></i><i></i><i></i></span>PowerShell<span class="tag">RUN</span></div><pre>python localdb.py
+<span class="c">Information added!
+Information added!
+... one line per section, 149 in total ...</span></pre></div></div><div class="sp-after"><p>Замените блок с тремя значениями в <code class="inl">__main__</code> (из предыдущих шагов) на один вызов <code class="inl">loadFiles()</code> и запустите <b>один раз</b>. Каждый раздел каждого документа станет отдельной строкой &mdash; на следующем слайде мы построим эмбеддинги и всё проверим.</p><div class="note"><b>Осторожно:</b> повторный запуск <code class="inl">loadFiles()</code> вставит все строки ещё раз. Чтобы добавить один новый документ позже, вызовите <code class="inl">insertInfo()</code> с его тремя значениями (шаг 13) или используйте эндпоинт создания из шага 19 (<code class="inl">POST /at_data/</code>).</div></div></div></section></div>
+</div>
+<div class="hud">
+  <a class="btn" id="prev" href="slide-31.html" title="Назад">&lsaquo;</a>
+  <span class="counter" id="count"></span>
+  <a class="btn" id="next" href="slide-33.html" title="Вперёд">&rsaquo;</a>
+</div>
+<script src="../nav.js"></script>
+</body>
+</html>
