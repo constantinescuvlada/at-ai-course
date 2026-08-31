@@ -1,12 +1,12 @@
 # AT AI Assistant — Course Materials
 
-Materials for the **AT AI Assistant** course: build a RAG (Retrieval-Augmented Generation) chatbot from zero using Python, FastAPI, PostgreSQL + pgvector, Ollama, and Gradio.
+Materials for the **AT AI Assistant** course: build a RAG (Retrieval-Augmented Generation) chatbot from zero using Python, FastAPI, PostgreSQL + pgvector, Ollama, and Gradio — then test it with pytest and a Selenium E2E test running on Selenoid.
 
 ## What's inside
 
 | Folder | Contents |
 |---|---|
-| [`course-presentation/`](course-presentation/) | The full slide deck (57 slides, 31 hands-on steps) in three languages, plus course videos |
+| [`course-presentation/`](course-presentation/) | The full slide deck (58 slides, 31 hands-on steps) in three languages, plus course videos |
 | [`files/`](files/) | The Markdown knowledge base the chatbot answers from (26 documents) |
 
 ## How to view the presentation
