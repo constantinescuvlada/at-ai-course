@@ -15,7 +15,7 @@
 
 docker run -e POSTGRES_USER=vlada -e POSTGRES_PASSWORD=abc `
     -e POSTGRES_DB=at_data_db `
-    -v C:/Users/you/ai-bot-learn/postgres:/var/lib/postgresql/data `
+    -v C:/Users/you/my-ai-bot/postgres:/var/lib/postgresql/data `
     --name at_postgres -p <span class="s">5433</span>:5432 -d ankane/pgvector</pre></div></div><div class="sp-after"><p><code class="inl">-v</code> mapează datele containerului pe folderul tău <code class="inl">postgres/</code>, astfel încât datele <b>supraviețuiesc repornirilor</b>. <code class="inl">-p 5433:5432</code> leagă ușa internă a containerului (portul 5432) de ușa <b>5433</b> de pe mașina ta &mdash; aceasta este adresa pe care o va folosi codul nostru. <code class="inl">-d</code> îl rulează în fundal.</p>
      <p>L-ai creat deja înainte? Containerul există deja &mdash; rulează pur și simplu <code class="inl">docker start at_postgres</code>.</p></div></div></section></div>
 </div>

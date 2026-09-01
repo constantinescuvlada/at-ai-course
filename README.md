@@ -26,13 +26,13 @@ Navigate with the arrow keys, the on-screen arrows, or the sidebar. Press `F` fo
 
 ## The hands-on project
 
-The presentation walks you through writing all the code yourself, step by step. The project repository you clone in **Step 1** (with the knowledge base, `requirements.txt`, and a finished reference copy of the code) is:
+This repository is the one you clone in **Step 1** of the course (it is public — the green *Code → Download ZIP* button works too):
 
 ```
-git clone https://github.com/bbs-md/ai-bot-learn.git
+git clone https://github.com/constantinescuvlada/at-ai-course.git
 ```
 
-Follow the slides from there — everything you need to install (Git, Python, Docker, Ollama) is covered in Module 2.
+The presentation then walks you through writing all the code yourself, step by step, in your own project folder (e.g. `my-ai-bot/`) — everything you need to install (Git, Python, Docker, Ollama) is covered in Module 2.
 
 ## Running the tests
 

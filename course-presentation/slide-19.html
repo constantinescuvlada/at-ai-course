@@ -15,7 +15,7 @@
 
 docker run -e POSTGRES_USER=vlada -e POSTGRES_PASSWORD=abc `
     -e POSTGRES_DB=at_data_db `
-    -v C:/Users/you/ai-bot-learn/postgres:/var/lib/postgresql/data `
+    -v C:/Users/you/my-ai-bot/postgres:/var/lib/postgresql/data `
     --name at_postgres -p <span class="s">5433</span>:5432 -d ankane/pgvector</pre></div></div><div class="sp-after"><p><code class="inl">-v</code> maps the container's data onto your <code class="inl">postgres/</code> folder, so the data <b>survives restarts</b>. <code class="inl">-p 5433:5432</code> connects the container's internal door (port 5432) to door <b>5433</b> on your machine &mdash; that's the address our code will use. <code class="inl">-d</code> runs it in the background.</p>
      <p>Created it before? The container already exists &mdash; just <code class="inl">docker start at_postgres</code>.</p></div></div></section></div>
 </div>
