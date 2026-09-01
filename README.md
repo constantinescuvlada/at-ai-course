@@ -33,3 +33,25 @@ git clone https://github.com/bbs-md/ai-bot-learn.git
 ```
 
 Follow the slides from there — everything you need to install (Git, Python, Docker, Ollama) is covered in Module 2.
+
+## Running the tests
+
+The tests exercise the **real running system**, so before starting them you must launch the API and the UI (each in its own terminal, from the project folder):
+
+```
+# terminal 1 — the API
+uvicorn atassistantapi:app --port 8080
+
+# terminal 2 — the Gradio UI
+python gradio_app.py
+```
+
+(The Postgres container and Ollama must also be running — see the "Start order" slide.)
+
+Only then run the tests:
+
+```
+pytest attest.py -v          # API integration tests
+pytest tests/seleniumtest.py -v   # Selenium E2E test (needs Selenoid, see the Selenium slide)
+```
+
