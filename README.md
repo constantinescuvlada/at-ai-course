@@ -6,7 +6,7 @@ Materials for the **AT AI Assistant** course: build a RAG (Retrieval-Augmented G
 
 | Folder | Contents |
 |---|---|
-| [`course-presentation/`](course-presentation/) | The full slide deck (58 slides, 31 hands-on steps) in three languages, plus course videos |
+| [`course-presentation/`](course-presentation/) | The full slide deck (59 slides, 31 hands-on steps) in three languages, plus course videos |
 | [`files/`](files/) | The Markdown knowledge base the chatbot answers from (26 documents) |
 
 ## How to view the presentation
