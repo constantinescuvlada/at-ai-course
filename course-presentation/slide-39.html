@@ -3,44 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AT AI Assistant &middot; Tutorial &mdash; 39/60</title>
+<title>AT AI Assistant &middot; Tutorial &mdash; 39/61</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body data-index="39" data-total="60" data-prev="slide-38.html" data-next="slide-40.html" data-first="index.html" data-last="slide-60.html">
+<body data-index="39" data-total="61" data-prev="slide-38.html" data-next="slide-40.html" data-first="index.html" data-last="slide-61.html">
 <div class="topbar"><div class="progress" id="prog"></div></div>
 <div class="doc">
-<nav class="sidebar"><div class="sb-head"><div class="sb-title">AT AI Assistant</div><div class="sb-sub">RAG Tutorial &middot; 31 steps</div></div><div class="sb-group"><div class="sb-gtitle">Introduction</div><a class="sb-link" href="index.html">Start</a><a class="sb-link" href="slide-02.html">The big idea</a><a class="sb-link" href="slide-03.html">The plan</a><a class="sb-link" href="slide-04.html">Project map</a></div><div class="sb-group"><div class="sb-gtitle">2 &middot; Setup</div><a class="sb-link" href="slide-05.html">Overview</a><a class="sb-link" href="slide-06.html">1. Clone the repo</a><a class="sb-link" href="slide-07.html">Why: GitHub &amp; Bitbucket</a><a class="sb-link" href="slide-08.html">Why: how Git works</a><a class="sb-link" href="slide-09.html">2. Install Python</a><a class="sb-link" href="slide-10.html">3. Install Docker</a><a class="sb-link" href="slide-11.html">4. Install Ollama</a><a class="sb-link" href="slide-12.html">5. Virtual env</a><a class="sb-link" href="slide-13.html">6. Dependencies</a><a class="sb-link" href="slide-14.html">7. .gitignore</a><a class="sb-link" href="slide-15.html">Why: Markdown docs</a><a class="sb-link" href="slide-16.html">Files map</a></div><div class="sb-group"><div class="sb-gtitle">3 &middot; Database</div><a class="sb-link" href="slide-17.html">Overview</a><a class="sb-link" href="slide-18.html">Why: PostgreSQL</a><a class="sb-link" href="slide-19.html">Why: pgvector</a><a class="sb-link" href="slide-20.html">8. Run Postgres</a><a class="sb-link" href="slide-21.html">9. Enable pgvector</a><a class="sb-link" href="slide-22.html">10. Create table</a><a class="sb-link" href="slide-23.html">Why: cosine distance</a><a class="sb-link" href="slide-24.html">Tools: pgAdmin</a><a class="sb-link" href="slide-25.html">Tools: Query Tool</a><a class="sb-link" href="slide-26.html">Tools: DBeaver</a></div><div class="sb-group"><div class="sb-gtitle">4 &middot; Data</div><a class="sb-link" href="slide-27.html">Overview</a><a class="sb-link" href="slide-28.html">Why: embeddings</a><a class="sb-link" href="slide-29.html">11. Knowledge base</a><a class="sb-link" href="slide-30.html">12. calcEmbed()</a><a class="sb-link" href="slide-31.html">13. localdb.py</a><a class="sb-link" href="slide-32.html">14. Backfill vectors</a><a class="sb-link" href="slide-33.html">How-to: load the files</a><a class="sb-link" href="slide-34.html">15. Load &amp; verify</a></div><div class="sb-group"><div class="sb-gtitle">5 &middot; Backend</div><a class="sb-link" href="slide-35.html">Overview</a><a class="sb-link" href="slide-36.html">16. API skeleton</a><a class="sb-link" href="slide-37.html">17. Pydantic model</a><a class="sb-link" href="slide-38.html">18. Read endpoints</a><a class="sb-link active" href="slide-39.html">19. Create endpoint</a><a class="sb-link" href="slide-40.html">20. Update &amp; delete</a><a class="sb-link" href="slide-41.html">21. Search</a><a class="sb-link" href="slide-42.html">Why: this is RAG</a><a class="sb-link" href="slide-43.html">22. Answer endpoint</a><a class="sb-link" href="slide-44.html">23. Chat memory</a><a class="sb-link" href="slide-45.html">24. Run &amp; test API</a></div><div class="sb-group"><div class="sb-gtitle">6 &middot; Frontend</div><a class="sb-link" href="slide-46.html">Overview</a><a class="sb-link" href="slide-47.html">25. ask_bot()</a><a class="sb-link" href="slide-48.html">26. Clean &amp; launch</a><a class="sb-link" href="slide-49.html">27. Run the UI</a></div><div class="sb-group"><div class="sb-gtitle">7 &middot; Test &amp; Run</div><a class="sb-link" href="slide-50.html">Overview</a><a class="sb-link" href="slide-51.html">28. Write tests</a><a class="sb-link" href="slide-52.html">How-to: start the system</a><a class="sb-link" href="slide-53.html">29. Run tests</a><a class="sb-link" href="slide-54.html">How-to: Selenium E2E</a><a class="sb-link" href="slide-55.html">30. Start order</a><a class="sb-link" href="slide-56.html">31. Troubleshooting</a></div><div class="sb-group"><div class="sb-gtitle">8 &middot; Wrap-up</div><a class="sb-link" href="slide-57.html">Overview</a><a class="sb-link" href="slide-58.html">Recap</a><a class="sb-link" href="slide-59.html">Exercises</a><a class="sb-link" href="slide-60.html">Done</a></div></nav>
-<div class="content"><section class="slide "><div class="brandmark">Module 5 &middot; Backend</div><div class="ribbon">Step 19 <span class="of">of 31</span> &middot; write the file</div><h2>Create endpoint: add + embed</h2><div class="split"><div class="sp-text"><p class="desc">The POST endpoint adds a new document over HTTP. It embeds all three fields <i>on the way in</i>, so the row is instantly searchable.</p>
-     <p>APIs report results with <b>status codes</b>: <code class="inl">201</code> = created, <code class="inl">400</code> = bad request (your fault), <code class="inl">404</code> = not found, <code class="inl">500</code> = server error.</p></div><div class="sp-code"><div class="block file"><div class="bhead">atassistantapi.py &mdash; continued<span class="tag">FILE</span></div><pre><span class="f">@app.post(<span class="s">"/at_data/"</span>, status_code=201)</span>
-<span class="k">def</span> <span class="f">add_page</span>(info: PageInfo):
-    <span class="k">if not</span> info.page.strip() <span class="k">or not</span> info.title.strip() <span class="k">or not</span> info.context.strip():
-        <span class="k">raise</span> HTTPException(status_code=400, detail=<span class="s">"Fields must not be empty"</span>)
-
+<nav class="sidebar"><div class="sb-head"><div class="sb-title">AT AI Assistant</div><div class="sb-sub">RAG Tutorial &middot; 31 steps</div></div><div class="sb-group"><div class="sb-gtitle">Introduction</div><a class="sb-link" href="index.html">Start</a><a class="sb-link" href="slide-02.html">The big idea</a><a class="sb-link" href="slide-03.html">The plan</a><a class="sb-link" href="slide-04.html">Project map</a></div><div class="sb-group"><div class="sb-gtitle">2 &middot; Setup</div><a class="sb-link" href="slide-05.html">Overview</a><a class="sb-link" href="slide-06.html">1. Clone the repo</a><a class="sb-link" href="slide-07.html">Why: GitHub &amp; Bitbucket</a><a class="sb-link" href="slide-08.html">Why: how Git works</a><a class="sb-link" href="slide-09.html">How-to: your own repo</a><a class="sb-link" href="slide-10.html">2. Install Python</a><a class="sb-link" href="slide-11.html">3. Install Docker</a><a class="sb-link" href="slide-12.html">4. Install Ollama</a><a class="sb-link" href="slide-13.html">5. Virtual env</a><a class="sb-link" href="slide-14.html">6. Dependencies</a><a class="sb-link" href="slide-15.html">7. .gitignore</a><a class="sb-link" href="slide-16.html">Why: Markdown docs</a><a class="sb-link" href="slide-17.html">Files map</a></div><div class="sb-group"><div class="sb-gtitle">3 &middot; Database</div><a class="sb-link" href="slide-18.html">Overview</a><a class="sb-link" href="slide-19.html">Why: PostgreSQL</a><a class="sb-link" href="slide-20.html">Why: pgvector</a><a class="sb-link" href="slide-21.html">8. Run Postgres</a><a class="sb-link" href="slide-22.html">9. Enable pgvector</a><a class="sb-link" href="slide-23.html">10. Create table</a><a class="sb-link" href="slide-24.html">Why: cosine distance</a><a class="sb-link" href="slide-25.html">Tools: pgAdmin</a><a class="sb-link" href="slide-26.html">Tools: Query Tool</a><a class="sb-link" href="slide-27.html">Tools: DBeaver</a></div><div class="sb-group"><div class="sb-gtitle">4 &middot; Data</div><a class="sb-link" href="slide-28.html">Overview</a><a class="sb-link" href="slide-29.html">Why: embeddings</a><a class="sb-link" href="slide-30.html">11. Knowledge base</a><a class="sb-link" href="slide-31.html">12. calcEmbed()</a><a class="sb-link" href="slide-32.html">13. localdb.py</a><a class="sb-link" href="slide-33.html">14. Backfill vectors</a><a class="sb-link" href="slide-34.html">How-to: load the files</a><a class="sb-link" href="slide-35.html">15. Load &amp; verify</a></div><div class="sb-group"><div class="sb-gtitle">5 &middot; Backend</div><a class="sb-link" href="slide-36.html">Overview</a><a class="sb-link" href="slide-37.html">16. API skeleton</a><a class="sb-link" href="slide-38.html">17. Pydantic model</a><a class="sb-link active" href="slide-39.html">18. Read endpoints</a><a class="sb-link" href="slide-40.html">19. Create endpoint</a><a class="sb-link" href="slide-41.html">20. Update &amp; delete</a><a class="sb-link" href="slide-42.html">21. Search</a><a class="sb-link" href="slide-43.html">Why: this is RAG</a><a class="sb-link" href="slide-44.html">22. Answer endpoint</a><a class="sb-link" href="slide-45.html">23. Chat memory</a><a class="sb-link" href="slide-46.html">24. Run &amp; test API</a></div><div class="sb-group"><div class="sb-gtitle">6 &middot; Frontend</div><a class="sb-link" href="slide-47.html">Overview</a><a class="sb-link" href="slide-48.html">25. ask_bot()</a><a class="sb-link" href="slide-49.html">26. Clean &amp; launch</a><a class="sb-link" href="slide-50.html">27. Run the UI</a></div><div class="sb-group"><div class="sb-gtitle">7 &middot; Test &amp; Run</div><a class="sb-link" href="slide-51.html">Overview</a><a class="sb-link" href="slide-52.html">28. Write tests</a><a class="sb-link" href="slide-53.html">How-to: start the system</a><a class="sb-link" href="slide-54.html">29. Run tests</a><a class="sb-link" href="slide-55.html">How-to: Selenium E2E</a><a class="sb-link" href="slide-56.html">30. Start order</a><a class="sb-link" href="slide-57.html">31. Troubleshooting</a></div><div class="sb-group"><div class="sb-gtitle">8 &middot; Wrap-up</div><a class="sb-link" href="slide-58.html">Overview</a><a class="sb-link" href="slide-59.html">Recap</a><a class="sb-link" href="slide-60.html">Exercises</a><a class="sb-link" href="slide-61.html">Done</a></div></nav>
+<div class="content"><section class="slide "><div class="brandmark">Module 5 &middot; Backend</div><div class="ribbon">Step 18 <span class="of">of 31</span> &middot; write the file</div><h2>Read endpoints: list &amp; get-by-id</h2><div class="split"><div class="sp-text"><p class="desc">HTTP requests come in kinds ("methods"): <b>GET</b> reads data, <b>POST</b> creates, <b>PUT</b> updates, <b>DELETE</b> removes. We start with two GET endpoints: list all documents, and fetch one by its id.</p>
+     <p>The <code class="inl">@app.get(...)</code> line is a <b>decorator</b> &mdash; it tells FastAPI "when this URL is requested, run the function below".</p></div><div class="sp-code"><div class="block file"><div class="bhead">atassistantapi.py &mdash; continued<span class="tag">FILE</span></div><pre><span class="f">@app.get(<span class="s">"/at_data/"</span>)</span>
+<span class="k">def</span> <span class="f">show_pages</span>():
     <span class="k">try</span>:
         conn = getDbCon()
         cur = conn.cursor()
+        cur.execute(<span class="s">"SELECT id, page, title, context, page_vector, title_vector, context_vector FROM at_data"</span>)
+        rows = cur.fetchall()
+        <span class="k">return</span> [
+            {
+                <span class="s">"id"</span>: row[0], <span class="s">"page"</span>: row[1], <span class="s">"title"</span>: row[2], <span class="s">"context"</span>: row[3],
+                <span class="s">"page_vector"</span>: row[4], <span class="s">"title_vector"</span>: row[5], <span class="s">"context_vector"</span>: row[6]
+            }
+            <span class="k">for</span> row <span class="k">in</span> rows
+        ]
+    <span class="k">except</span> Exception <span class="k">as</span> e:
+        <span class="k">raise</span> HTTPException(status_code=500, detail=str(e))
+    <span class="k">finally</span>:
+        cur.close()
+        conn.close()
 
-        page_vector = calcEmbed(info.page)
-        title_vector = calcEmbed(info.title)
-        context_vector = calcEmbed(info.context)
 
+<span class="f">@app.get(<span class="s">"/at_data/{page_id}"</span>)</span>
+<span class="k">def</span> <span class="f">get_page_by_id</span>(page_id: int):
+    <span class="k">try</span>:
+        conn = getDbCon()
+        cur = conn.cursor()
         cur.execute(<span class="s">"""
-            INSERT INTO at_data (page, title, context, page_vector, title_vector, context_vector)
-            VALUES (%s, %s, %s, %s, %s, %s)
-            RETURNING id
-        """</span>, (
-            info.page.strip(), info.title.strip(), info.context.strip(),
-            page_vector, title_vector, context_vector
-        ))
-        new_id = cur.fetchone()[0]
-        conn.commit()
-        <span class="k">return</span> {<span class="s">"message"</span>: <span class="s">"Added"</span>, <span class="s">"id"</span>: new_id}
+            SELECT id, page, title, context, page_vector, title_vector, context_vector
+            FROM at_data WHERE id = %s
+        """</span>, (page_id,))
+        row = cur.fetchone()
+
+        <span class="k">if not</span> row:
+            <span class="k">raise</span> HTTPException(status_code=404, detail=<span class="s">"Record not found"</span>)
+
+        <span class="k">return</span> {
+            <span class="s">"id"</span>: row[0], <span class="s">"page"</span>: row[1], <span class="s">"title"</span>: row[2], <span class="s">"context"</span>: row[3],
+            <span class="s">"page_vector"</span>: row[4], <span class="s">"title_vector"</span>: row[5], <span class="s">"context_vector"</span>: row[6]
+        }
 
     <span class="k">except</span> Exception <span class="k">as</span> e:
         <span class="k">raise</span> HTTPException(status_code=500, detail=str(e))
     <span class="k">finally</span>:
         cur.close()
-        conn.close()</pre></div></div><div class="sp-after"><p>Empty fields are rejected with <b>400</b> before touching the database. <code class="inl">RETURNING id</code> hands the new row's auto-generated id back from SQL, and <code class="inl">conn.commit()</code> makes the insert permanent.</p></div></div></section></div>
+        conn.close()</pre></div></div><div class="sp-after"><p><code class="inl">{page_id}</code> in the path becomes the function's argument: requesting <code class="inl">/at_data/7</code> calls it with <code class="inl">page_id=7</code>. Whatever the function returns, FastAPI converts to JSON automatically.</p>
+     <p>The <code class="inl">try / except / finally</code> around every endpoint: any crash becomes a clean HTTP <b>500</b> error instead of a dead server, and <code class="inl">finally</code> guarantees the database connection is closed either way.</p></div></div></section></div>
 </div>
 <div class="hud">
   <a class="btn" id="prev" href="slide-38.html" title="Previous">&lsaquo;</a>
